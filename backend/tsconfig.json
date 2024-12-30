@@ -111,11 +111,14 @@
 // }
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
-    "rootDir": "./src",
     "outDir": "./dist",
+    "rootDir": "./src",
+    "module": "commonjs",
+    "target": "ES6",
     "strict": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true, // Enable ES module interop
+    "allowSyntheticDefaultImports": true // Allow synthetic default imports for CommonJS
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
