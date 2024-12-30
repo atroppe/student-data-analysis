@@ -38,17 +38,14 @@ export const createGradedCategoriesSummary = (
 
     const scores = data.map((row) => row[header]);
 
-    // const validScores = scores.filter((score) => typeof score === "number");
-    const validScores = scores.filter((score) => {
-      // Convert the score to a number
-      const parsedScore = parseFloat(score);
-      // Check if it's a valid number
-      return !isNaN(parsedScore);
-    });
+    const validScores = scores
+      .map((score) => parseFloat(score)) // Convert all scores to numbers
+      .filter((score) => !isNaN(score) && isFinite(score));
 
     if (validScores.length > 0) {
       const highestScore = Math.max(...validScores);
       const lowestScore = Math.min(...validScores);
+
       const averageScore =
         validScores.reduce((acc, score) => acc + score, 0) / validScores.length;
 
@@ -60,8 +57,6 @@ export const createGradedCategoriesSummary = (
       });
     }
   });
-
-  console.log(gradedCategories);
 
   return gradedCategories;
 };
