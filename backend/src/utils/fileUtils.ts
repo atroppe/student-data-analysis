@@ -31,15 +31,11 @@ export const createGradedCategoriesSummary = (
 ): GradedCategories[] => {
   const gradedCategories: GradedCategories[] = [];
 
-  // console.log(data);
-
   headers.forEach((header) => {
-    // console.log(header);
-
     const scores = data.map((row) => row[header]);
 
     const validScores = scores
-      .map((score) => parseFloat(score)) // Convert all scores to numbers
+      .map((score) => parseFloat(score))
       .filter((score) => !isNaN(score) && isFinite(score));
 
     if (validScores.length > 0) {

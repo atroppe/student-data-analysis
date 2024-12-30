@@ -15,11 +15,9 @@ export const processCsv = (req: Request, res: Response): any => {
   fs.createReadStream(CSV_FILE_PATH)
     .pipe(csvParser())
     .on("data", (data) => {
-      // Push the data from each CSV row to the results array
       results.push(data);
     })
     .on("end", () => {
-      // Send the parsed CSV data as a JSON response
       res.json({ message: "CSV processed successfully!", data: results });
     })
     .on("error", (err) => {
