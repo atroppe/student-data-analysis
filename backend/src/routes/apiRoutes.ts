@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get("/csv/process", processCsv);
 
-router.get("/data/grades", getGradedCategoriesSummary);
+router.get("/data/graded-categories-summary", getGradedCategoriesSummary);
 
 export default router;

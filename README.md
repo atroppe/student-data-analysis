@@ -83,7 +83,7 @@ The server will now be running on [http://localhost:8080](http://localhost:8080)
 **Example Request:**
 
 ```bash
-GET http://localhost:8080/api/csv/graded-categories-summary
+GET http://localhost:8080/api/data/graded-categories-summary
 ```
 
 **Example Response:**
