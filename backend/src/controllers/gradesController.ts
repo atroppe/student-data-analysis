@@ -5,6 +5,7 @@ import {
   getCsvFilePath,
   parseCsvToJson,
 } from "../utils/fileUtils";
+import { GradedCategories } from "../interfaces/interfaces";
 
 const filePath = getCsvFilePath("students_data.csv");
 

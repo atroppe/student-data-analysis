@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import csv from "csv-parser";
+import { GradedCategories } from "../interfaces/interfaces";
 
 export const fileExists = (filePath: string): boolean => {
   return fs.existsSync(filePath);

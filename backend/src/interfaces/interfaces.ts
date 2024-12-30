@@ -1,4 +1,4 @@
-interface GradedCategories {
+export interface GradedCategories {
   key?: string;
   highestScore?: number;
   lowestScore?: number;
