@@ -7,7 +7,7 @@ import csvParser from "csv-parser";
 const CSV_FILE_PATH = path.join(__dirname, "../data/students_data.csv");
 
 // Controller to process the CSV file
-export const processCsv = (req: Request, res: Response) => {
+export const processCsv = (req: Request, res: Response): any => {
   const results: Record<string, any>[] = [];
 
   if (!fs.existsSync(CSV_FILE_PATH)) {
