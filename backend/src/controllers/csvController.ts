@@ -3,10 +3,8 @@ import fs from "fs";
 import path from "path";
 import csvParser from "csv-parser";
 
-// File path for the CSV file
-const CSV_FILE_PATH = path.join(__dirname, "../data/students_data.csv");
+const CSV_FILE_PATH = path.join(__dirname, "../../data/students_data.csv");
 
-// Controller to process the CSV file
 export const processCsv = (req: Request, res: Response): any => {
   const results: Record<string, any>[] = [];
 
