@@ -3,7 +3,7 @@ import cors from "cors";
 import csvRoutes from "./routes/csvRoutes";
 
 const app = express();
-const PORT = 5001;
+const PORT = 8080;
 
 // Enable CORS
 app.use(cors());
