@@ -7,7 +7,9 @@ export const fileExists = (filePath: string): boolean => {
   return fs.existsSync(filePath);
 };
 
-export const getCsvFilePath = (fileName: string): string => {
+export const getCsvFilePath = (
+  fileName: string = "students_data.csv"
+): string => {
   return path.join(__dirname, "../../", "data", fileName);
 };
 
@@ -23,44 +25,43 @@ export const parseCsvToJson = (filePath: string): Promise<any[]> => {
   });
 };
 
-export const createGradedCategoriesSummary = async (
-  filePath: string
-): Promise<GradedCategories[]> => {
-  const categoriesMap: Record<string, number[]> = {}; // Object to store scores grouped by category
+export const createGradedCategoriesSummary = (
+  data: any[],
+  headers: string[]
+): GradedCategories[] => {
+  const gradedCategories: GradedCategories[] = [];
 
-  try {
-    const rows = await parseCsvToJson(getCsvFilePath(filePath)); // Assuming `parseCsvToJson` is already implemented
-    rows.forEach((row) => {
-      const { category, score } = row; // Adjust these based on the actual CSV column names
+  // console.log(data);
 
-      if (category && score !== undefined) {
-        if (!categoriesMap[category]) {
-          categoriesMap[category] = [];
-        }
-        categoriesMap[category].push(Number(score));
-      }
+  headers.forEach((header) => {
+    // console.log(header);
+
+    const scores = data.map((row) => row[header]);
+
+    // const validScores = scores.filter((score) => typeof score === "number");
+    const validScores = scores.filter((score) => {
+      // Convert the score to a number
+      const parsedScore = parseFloat(score);
+      // Check if it's a valid number
+      return !isNaN(parsedScore);
     });
 
-    // Now create the GradedCategories array
-    const gradedCategories: GradedCategories[] = [];
-
-    for (const [category, scores] of Object.entries(categoriesMap)) {
-      const highestScore = Math.max(...scores);
-      const lowestScore = Math.min(...scores);
+    if (validScores.length > 0) {
+      const highestScore = Math.max(...validScores);
+      const lowestScore = Math.min(...validScores);
       const averageScore =
-        scores.reduce((acc, score) => acc + score, 0) / scores.length;
+        validScores.reduce((acc, score) => acc + score, 0) / validScores.length;
 
       gradedCategories.push({
-        key: category,
+        key: header,
         highestScore,
         lowestScore,
         averageScore,
       });
     }
+  });
 
-    return gradedCategories;
-  } catch (error) {
-    console.error("Error processing CSV file:", error);
-    throw new Error("Failed to process CSV file");
-  }
+  console.log(gradedCategories);
+
+  return gradedCategories;
 };

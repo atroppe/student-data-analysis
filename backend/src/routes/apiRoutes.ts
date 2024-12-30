@@ -1,6 +1,6 @@
 import express from "express";
 import { processCsv } from "../controllers/csvController";
-import { getGradesData } from "../controllers/gradesController";
+import { getGradedCategoriesSummary } from "../controllers/gradesController";
 import { getStudentsData } from "../controllers/studentsController";
 
 const router = express.Router();
@@ -10,6 +10,6 @@ router.get("/csv/process", processCsv);
 
 router.get("/data/students", getStudentsData);
 
-router.get("/data/grades", getGradesData);
+router.get("/data/grades", getGradedCategoriesSummary);
 
 export default router;
