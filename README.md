@@ -72,9 +72,23 @@ The server will now be running on [http://localhost:8080](http://localhost:8080)
 
 ## API Endpoints
 
-### 1. Get Graded Categories Summary
+### 1. Report designed for teachers
 
-**Endpoint:** `/api/csv/graded-categories-summary`
+**Endpoint:** `/api/data/teacher-report/:student_id`
+
+**Method:** `GET`
+
+**Description:** Returns the metrics for each student based on the ID given in the url.
+
+**Example Request:**
+
+```bash
+GET http://localhost:8080/api/data/teacher-report/<Student_ID>
+```
+
+### 2. Get Graded Categories Summary
+
+**Endpoint:** `/api/data/graded-categories-summary`
 
 **Method:** `GET`
 
