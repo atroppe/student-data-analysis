@@ -95,7 +95,8 @@ function formatKeyToDisplayText(key: string): string {
 }
 
 export const getGeneralResults = (studentData: ExtendedStudentData): any => {
-  const academicAreas = Object.keys(thresholds.Academic || {}).map((metric) => {
+  const academicArray = Object.keys(thresholds.Academic || {});
+  const academicAreas = academicArray.map((metric) => {
     return {
       metric: formatKeyToDisplayText(metric),
       studentScore: Math.round(studentData[metric]),
@@ -103,8 +104,18 @@ export const getGeneralResults = (studentData: ExtendedStudentData): any => {
     };
   });
 
+  const allAreas = Object.keys(studentData)
+    .filter((item) => !academicArray.includes(item) && item !== "Student_ID")
+    .map((metric) => {
+      return {
+        metric: formatKeyToDisplayText(metric),
+        studentScore: Math.round(studentData[metric]) || studentData[metric],
+      };
+    });
+
   const summary = {
     academicAreas,
+    allAreas,
   };
   return summary;
 };
