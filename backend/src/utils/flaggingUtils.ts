@@ -46,41 +46,6 @@ export const formatKeyToDisplayName = (key: string): string => {
     .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize the first letter of each word
 };
 
-export const generateFlags = (studentData: ExtendedStudentData): Flags => {
-  const flags: Flags = {};
-
-  for (const category in thresholds) {
-    flags[category] = [];
-
-    // Iterate over all the metrics in the current category
-    for (const metric in thresholds[category]) {
-      const { min, max } = thresholds[category][metric];
-      const value = studentData[metric as keyof ExtendedStudentData]; // Access the student's data field
-
-      if (!isNaN(parseFloat(value))) {
-        if (metric === "Frequent_Interruptions" || metric === "Stress_Level") {
-          if (value > max) {
-            flags[category].push(
-              `${formatKeyToDisplayName(metric)} is higher than average.`
-            );
-          }
-        } else if (value < min || value > max) {
-          flags[category].push(
-            `${formatKeyToDisplayName(metric)} is below average.`
-          );
-        }
-      }
-    }
-
-    // Remove empty categories from the flags
-    if (flags[category].length === 0) {
-      delete flags[category];
-    }
-  }
-
-  return flags;
-};
-
 export const categories = Object.values(Category);
 export const messages = Object.values(Messages);
 

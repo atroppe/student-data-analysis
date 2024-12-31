@@ -73,10 +73,6 @@ export interface ExtendedStudentData extends StudentData {
   [key: string]: any; // Allow any additional fields
 }
 
-// we detected some anomalies in the following categories that may indicate a need for a consultation with a specialist.
-// Category: Behavioral
-// These metrics could indicate a risk of ADHD
-// Areas of concern: Focus Levels (score: 1, average score: 5), Frequent Interruptions, Consistent Assignment Completion
 export interface AreasOfConcern {
   metrics: string[];
   score: number;
