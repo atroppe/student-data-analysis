@@ -4,7 +4,10 @@ import {
   createTheme,
 } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import IntegrationInput from "./components/integration-input/integration-input";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ReportForTeacher from "./student-data-components/report-for-teacher/report-for-teacher";
+import ReportForStudent from "./student-data-components/report-for-parent/report-for-parent";
+import Link from "@mui/material/Link";
 
 const theme = createTheme({
   typography: {
@@ -54,7 +57,24 @@ export function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box component="section" sx={{ m: 2, p: 2, border: "1px dashed grey" }}>
-        <IntegrationInput />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/teachers" element={<ReportForTeacher />} />
+            <Route path="/parents" element={<ReportForStudent />} />
+          </Routes>
+        </BrowserRouter>
+        <ul>
+          <li>
+            <Link href="/teachers" color="inherit">
+              For Teachers
+            </Link>
+          </li>
+          <li>
+            <Link href="/parents" color="inherit">
+              For Parents
+            </Link>
+          </li>
+        </ul>
       </Box>
     </ThemeProvider>
   );
