@@ -67,3 +67,8 @@ export interface StudentDataThresholds {
 export interface Flags {
   [category: string]: string[];
 }
+
+export interface ExtendedStudentData extends StudentData {
+  Student_ID: string;
+  [key: string]: any; // Allow any additional fields
+}

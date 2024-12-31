@@ -1,4 +1,10 @@
-import { Flags, StudentData, Threshold } from "../interfaces/interfaces";
+import { log } from "node:console";
+import {
+  ExtendedStudentData,
+  Flags,
+  StudentData,
+  Threshold,
+} from "../interfaces/interfaces";
 
 const thresholds: Record<string, Record<string, Threshold>> = {
   academic: {
@@ -32,29 +38,35 @@ const thresholds: Record<string, Record<string, Threshold>> = {
   },
 };
 
-export const generateFlags = (studentData: StudentData): Flags => {
+export const generateFlags = (studentData: ExtendedStudentData): Flags => {
   const flags: Flags = {};
 
+  // Iterate over all the categories in the thresholds
   for (const category in thresholds) {
+    console.log(category);
+
     flags[category] = [];
 
+    // Iterate over all the metrics in the current category
     for (const metric in thresholds[category]) {
       const { min, max } = thresholds[category][metric];
-      const value = studentData[metric as keyof StudentData];
-
-      if (value !== undefined) {
+      const value = studentData[metric as keyof ExtendedStudentData]; // Access the student's data field
+      console.log(value);
+      // Check if the value is a number before comparing
+      if (!isNaN(parseFloat(value))) {
         if (metric === "Frequent_Interruptions" || metric === "Stress_Level") {
           if (value > max) {
-            flags[category].push(`${metric} exceeds acceptable range.`);
+            flags[category].push(`${metric} is higher than average.`);
           }
         } else if (value < min || value > max) {
-          flags[category].push(`${metric} is outside the acceptable range.`);
+          flags[category].push(`${metric} is below average.`);
         }
       }
     }
 
+    // Remove empty categories from the flags
     if (flags[category].length === 0) {
-      delete flags[category]; // Remove empty categories
+      delete flags[category];
     }
   }
 

@@ -1,7 +1,10 @@
 import fs from "fs";
 import path from "path";
 import csv from "csv-parser";
-import { GradedCategories } from "../interfaces/interfaces";
+import {
+  ExtendedStudentData,
+  GradedCategories,
+} from "../interfaces/interfaces";
 
 export const fileExists = (filePath: string): boolean => {
   return fs.existsSync(filePath);
@@ -13,7 +16,9 @@ export const getCsvFilePath = (
   return path.join(__dirname, "../../", "data", fileName);
 };
 
-export const parseCsvToJson = (filePath: string): Promise<any[]> => {
+export const parseCsvToJson = (
+  filePath: string
+): Promise<ExtendedStudentData[]> => {
   return new Promise((resolve, reject) => {
     const results: any[] = [];
 
