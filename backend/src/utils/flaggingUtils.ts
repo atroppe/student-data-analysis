@@ -38,13 +38,17 @@ const thresholds: Record<string, Record<string, Threshold>> = {
   },
 };
 
+export const formatKeyToDisplayName = (key: string): string => {
+  // Replace underscores with spaces and capitalize each word
+  return key
+    .replace(/_/g, " ") // Replace underscores with spaces
+    .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize the first letter of each word
+};
+
 export const generateFlags = (studentData: ExtendedStudentData): Flags => {
   const flags: Flags = {};
 
-  // Iterate over all the categories in the thresholds
   for (const category in thresholds) {
-    console.log(category);
-
     flags[category] = [];
 
     // Iterate over all the metrics in the current category
@@ -52,14 +56,18 @@ export const generateFlags = (studentData: ExtendedStudentData): Flags => {
       const { min, max } = thresholds[category][metric];
       const value = studentData[metric as keyof ExtendedStudentData]; // Access the student's data field
       console.log(value);
-      // Check if the value is a number before comparing
+
       if (!isNaN(parseFloat(value))) {
         if (metric === "Frequent_Interruptions" || metric === "Stress_Level") {
           if (value > max) {
-            flags[category].push(`${metric} is higher than average.`);
+            flags[category].push(
+              `${formatKeyToDisplayName(metric)} is higher than average.`
+            );
           }
         } else if (value < min || value > max) {
-          flags[category].push(`${metric} is below average.`);
+          flags[category].push(
+            `${formatKeyToDisplayName(metric)} is below average.`
+          );
         }
       }
     }
