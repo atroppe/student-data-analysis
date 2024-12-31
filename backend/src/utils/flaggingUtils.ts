@@ -1,13 +1,14 @@
-import { log } from "node:console";
 import {
+  Category,
   ExtendedStudentData,
   Flags,
-  StudentData,
+  FlagsWithInsights,
+  Messages,
   Threshold,
 } from "../interfaces/interfaces";
 
 const thresholds: Record<string, Record<string, Threshold>> = {
-  academic: {
+  Academic: {
     Basic_Arithmetic: { min: 74.16, max: 100 },
     Geometry_Understanding: { min: 71.07, max: 100 },
     Word_Problems: { min: 70.15, max: 100 },
@@ -16,21 +17,21 @@ const thresholds: Record<string, Record<string, Threshold>> = {
     Passage_Understanding: { min: 68.48, max: 100 },
     Inferential_Thinking: { min: 70.98, max: 100 },
   },
-  socialEmotional: {
+  SocialEmotional: {
     Teamwork_Ability: { min: 72.29, max: 100 },
     Communication_Skills: { min: 72.37, max: 100 },
     Emotional_Recognition: { min: 71.23, max: 100 },
   },
-  behavioral: {
+  Behavioral: {
     Focus_Levels: { min: 59.5, max: 97.73 },
     Frequent_Interruptions: { min: 1.6, max: 72.09 }, // Lower is better
     Consistent_Assignment_Completion: { min: 74.74, max: 100 },
   },
-  attendanceParticipation: {
+  AttendanceParticipation: {
     Attendance_Rate: { min: 89.2, max: 99.92 },
     Participation_Score: { min: 69.66, max: 100 },
   },
-  environmental: {
+  Environmental: {
     Sleep_Hours_Per_Night: { min: 6.93, max: 10 },
     Stress_Level: { min: 1, max: 4.93 }, // Lower is better
     Tutoring_Sessions_Per_Week: { min: 0.9, max: 5 },
@@ -55,7 +56,6 @@ export const generateFlags = (studentData: ExtendedStudentData): Flags => {
     for (const metric in thresholds[category]) {
       const { min, max } = thresholds[category][metric];
       const value = studentData[metric as keyof ExtendedStudentData]; // Access the student's data field
-      console.log(value);
 
       if (!isNaN(parseFloat(value))) {
         if (metric === "Frequent_Interruptions" || metric === "Stress_Level") {
@@ -79,4 +79,43 @@ export const generateFlags = (studentData: ExtendedStudentData): Flags => {
   }
 
   return flags;
+};
+
+export const categories = Object.values(Category);
+export const messages = Object.values(Messages);
+
+export const getAreasOfConcern = (
+  studentData: ExtendedStudentData,
+  category: Category
+): string[] => {
+  const metrics: string[] = [];
+  for (const metric in thresholds[category]) {
+    const { min, max } = thresholds[category][metric];
+    const value = studentData[metric as keyof ExtendedStudentData]; // Access the student's data field
+
+    if (!isNaN(parseFloat(value))) {
+      if (metric === "Frequent_Interruptions" || metric === "Stress_Level") {
+        if (value > max) {
+          metrics.push(formatKeyToDisplayName(metric));
+        }
+      } else if (value < min || value > max) {
+        metrics.push(formatKeyToDisplayName(metric));
+      }
+    }
+  }
+  return metrics;
+};
+
+export const generateInsights = (
+  studentData: ExtendedStudentData
+): FlagsWithInsights[] => {
+  const flags = generateFlags(studentData);
+  const summary = categories.map((category, i) => {
+    return {
+      category,
+      message: messages[i],
+      areasOfConcern: getAreasOfConcern(studentData, category),
+    };
+  });
+  return summary;
 };

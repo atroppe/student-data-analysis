@@ -85,6 +85,14 @@ export interface AreasOfConcern {
 
 export enum Category {
   Academic = "Academic",
+  SocialEmotional = "SocialEmotional",
+  Behavioral = "Behavioral",
+  AttendanceParticipation = "AttendanceParticipation",
+  Environmental = "Environmental",
+}
+
+export enum CategoryDisplayNames {
+  Academic = "Academic",
   socialEmotional = "Social and Emotional",
   Behavioral = "Behavioral",
   AttendanceParticipation = "Attendance and Participation",
@@ -102,5 +110,5 @@ export enum Messages {
 export interface FlagsWithInsights {
   category: Category;
   message: string;
-  areasOfConcern: AreasOfConcern;
+  areasOfConcern: string[];
 }
