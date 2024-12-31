@@ -63,3 +63,7 @@ export interface StudentDataThresholds {
     Parental_Involvement: Threshold;
   };
 }
+
+export interface Flags {
+  [category: string]: string[];
+}

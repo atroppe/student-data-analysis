@@ -1,6 +1,6 @@
-import { StudentData, StudentDataThresholds } from "../interfaces/interfaces";
+import { Flags, StudentData, Threshold } from "../interfaces/interfaces";
 
-const thresholds: StudentDataThresholds = {
+const thresholds: Record<string, Record<string, Threshold>> = {
   academic: {
     Basic_Arithmetic: { min: 74.16, max: 100 },
     Geometry_Understanding: { min: 71.07, max: 100 },
@@ -32,17 +32,15 @@ const thresholds: StudentDataThresholds = {
   },
 };
 
-module.exports = thresholds;
-
-const generateFlags = (studentData: StudentData) => {
-  const flags = {};
+export const generateFlags = (studentData: StudentData): Flags => {
+  const flags: Flags = {};
 
   for (const category in thresholds) {
     flags[category] = [];
 
     for (const metric in thresholds[category]) {
       const { min, max } = thresholds[category][metric];
-      const value = studentData[metric];
+      const value = studentData[metric as keyof StudentData];
 
       if (value !== undefined) {
         if (metric === "Frequent_Interruptions" || metric === "Stress_Level") {
@@ -62,5 +60,3 @@ const generateFlags = (studentData: StudentData) => {
 
   return flags;
 };
-
-module.exports.generateFlags = generateFlags;
