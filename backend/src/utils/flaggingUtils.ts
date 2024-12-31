@@ -74,12 +74,14 @@ export const getAreasOfConcern = (
 export const generateInsights = (
   studentData: ExtendedStudentData
 ): FlagsWithInsights[] => {
-  const flags = generateFlags(studentData);
   const summary = categories.map((category, i) => {
+    const areasOfConcern = getAreasOfConcern(studentData, category);
     return {
       category,
-      message: messages[i],
-      areasOfConcern: getAreasOfConcern(studentData, category),
+      message: areasOfConcern.length
+        ? messages[i]
+        : "There were no concerns detected in this category",
+      areasOfConcern,
     };
   });
   return summary;
