@@ -86,3 +86,25 @@ export const generateInsights = (
   });
   return summary;
 };
+
+function formatKeyToDisplayText(key: string): string {
+  return key
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
+export const getGeneralResults = (studentData: ExtendedStudentData): any => {
+  const academicAreas = Object.keys(thresholds.Academic || {}).map((metric) => {
+    return {
+      metric: formatKeyToDisplayText(metric),
+      studentScore: Math.round(studentData[metric]),
+      averageScore: Math.round(thresholds.Academic[metric].min),
+    };
+  });
+
+  const summary = {
+    academicAreas,
+  };
+  return summary;
+};
