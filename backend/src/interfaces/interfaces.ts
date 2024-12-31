@@ -54,7 +54,7 @@ export interface StudentDataThresholds {
   };
   attendanceParticipation: {
     Attendance_Rate: Threshold;
-    Participation_Score: Threshold;
+    Participation_Score: Threshold; // add study hours
   };
   environmental: {
     Sleep_Hours_Per_Night: Threshold;
@@ -71,4 +71,36 @@ export interface Flags {
 export interface ExtendedStudentData extends StudentData {
   Student_ID: string;
   [key: string]: any; // Allow any additional fields
+}
+
+// we detected some anomalies in the following categories that may indicate a need for a consultation with a specialist.
+// Category: Behavioral
+// These metrics could indicate a risk of ADHD
+// Areas of concern: Focus Levels (score: 1, average score: 5), Frequent Interruptions, Consistent Assignment Completion
+export interface AreasOfConcern {
+  metrics: string[];
+  score: number;
+  averageScore: number;
+}
+
+export enum Category {
+  Academic = "Academic",
+  socialEmotional = "Social and Emotional",
+  Behavioral = "Behavioral",
+  AttendanceParticipation = "Attendance and Participation",
+  Environmental = "Environmental",
+}
+
+export enum Messages {
+  Academic = "These test scores indicate a lower than average grasp of the academic content.",
+  socialEmotional = "These metrics could indicate a risk of Autism Spectrum Disorder.",
+  Behavioral = "These metrics could indicate a risk of ADHD.",
+  AttendanceParticipation = "The student's engagement is not as high as it should be.'",
+  Environmental = "There are some risk factors in the student's environment that could be impacting their success.",
+}
+
+export interface FlagsWithInsights {
+  category: Category;
+  message: string;
+  areasOfConcern: AreasOfConcern;
 }
