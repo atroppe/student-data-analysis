@@ -57,16 +57,15 @@ export function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box component="section" sx={{ m: 2, p: 2, border: "1px dashed grey" }}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/teachers" element={<ReportForTeacher />} />
-            <Route path="/parents" element={<ReportForStudent />} />
-          </Routes>
-        </BrowserRouter>
         <ul>
           <li>
             <Link href="/teachers" color="inherit">
               For Teachers
+            </Link>
+          </li>
+          <li>
+            <Link href="/teachers/1" color="inherit">
+              For Teachers: student by ID
             </Link>
           </li>
           <li>
@@ -75,6 +74,14 @@ export function App() {
             </Link>
           </li>
         </ul>
+
+        <BrowserRouter>
+          <Routes>
+            <Route path="/teachers" element={<ReportForTeacher />} />
+            <Route path="/teachers/:studentId" element={<ReportForTeacher />} />
+            <Route path="/parents" element={<ReportForStudent />} />
+          </Routes>
+        </BrowserRouter>
       </Box>
     </ThemeProvider>
   );
