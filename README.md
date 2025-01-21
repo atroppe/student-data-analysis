@@ -1,124 +1,152 @@
-# Student Data Analysis API
+# Student Data Analysis Project
 
-This project provides an API for processing student data from a CSV file. It includes endpoints to analyze graded categories and provides detailed summaries such as highest, lowest, and average scores for each category.
+This project is a full-stack application designed to analyze student data from a CSV file and generate meaningful reports for teachers and parents. It includes an Express backend and a React (TypeScript) frontend.
+
+---
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
-- npm or pnpm
-- A terminal to run commands
+Make sure you have the following installed:
 
-## Setup
+- [Node.js](https://nodejs.org/) (v16 or later recommended)
+- [pnpm](https://pnpm.io/) (version 7 or later)
 
-### 1. Clone the repository
+---
 
-Clone the repository to your local machine:
+## Project Structure
+
+```
+/project-root
+  ├── backend/            # Express backend
+  ├── frontend/           # React frontend
+  ├── shared/             # Shared types or utilities
+  ├── pnpm-workspace.yaml # pnpm workspace configuration
+  └── README.md           # Project documentation
+```
+
+---
+
+## Setting Up the Project
+
+### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone <repository-url>
 cd student-data-analysis
-cd backend
 ```
 
-### 2. Install dependencies
+### 2. Install Dependencies
 
-Run the following command to install the required dependencies:
-
-#### Using npm:
-
-```bash
-npm install
-```
-
-#### Using pnpm:
+Run the following command in the project root to install all dependencies for both the backend and frontend:
 
 ```bash
 pnpm install
 ```
 
-### 3. Set up the CSV file
+### 3. Environment Variables
 
-Ensure the CSV file (`students_data.csv`) is placed in the `data/` directory inside the `backend/` folder. If it doesn't exist, create it.
+#### Backend
 
-The expected structure of the CSV file should have headers like `student_name`, `subject`, `score`, etc.
+Create a `.env` file in the `backend` directory and configure the necessary variables. For example:
 
-### 4. Configure the server
+```
+PORT=8080
+```
 
-By default, the server will run on port `8080`. You can change the port by modifying the `server.js` file.
+#### Frontend
 
-### 5. Build the TypeScript files
+Create a `.env` file in the `frontend` directory and set the API base URL:
 
-If you're using TypeScript, compile the code by running:
+```
+VITE_API_BASE_URL=http://localhost:8080/api
+```
+
+---
+
+## Running the Project
+
+### 1. Start the Backend
+
+Navigate to the `backend` directory and start the server:
 
 ```bash
-npm run build
+cd backend
+pnpm start
 ```
 
-### 6. Run the server
+The backend will be available at `http://localhost:8080`.
 
-Start the server:
+### 2. Start the Frontend
+
+Navigate to the `frontend` directory and run the development server:
 
 ```bash
-npm start
+cd frontend
+pnpm dev
 ```
 
-### 7. OR Build and watch Typescript files for changes
+The frontend will be available at `http://localhost:5173`.
+
+---
+
+## Building for Production
+
+### 1. Build the Frontend
+
+Navigate to the `frontend` directory and run:
 
 ```bash
-npm run start:dev
+cd frontend
+pnpm build
 ```
 
-The server will now be running on [http://localhost:8080](http://localhost:8080).
+This will generate a production-ready build in the `frontend/dist` directory.
 
-## API Endpoints
+### 2. Serve the Frontend with the Backend
 
-### 1. Report designed for teachers
+Ensure the backend is configured to serve static files from the frontend build:
 
-**Endpoint:** `/api/data/teacher-report/:student_id`
+```javascript
+import path from "path";
+import express from "express";
 
-**Method:** `GET`
+const app = express();
 
-**Description:** Returns the metrics for each student based on the ID given in the url.
+app.use(express.static(path.join(__dirname, "frontend", "dist")));
 
-**Example Request:**
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+});
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+```
+
+---
+
+## Testing
+
+### Backend Tests
+
+Navigate to the `backend` directory and run:
 
 ```bash
-GET http://localhost:8080/api/data/teacher-report/<Student_ID>
+pnpm test
 ```
 
-### 2. Get Graded Categories Summary
+### Frontend Tests
 
-**Endpoint:** `/api/data/graded-categories-summary`
-
-**Method:** `GET`
-
-**Description:** Returns the graded categories summary from the CSV file. The response includes the highest, lowest, and average scores for each graded category.
-
-**Example Request:**
+Navigate to the `frontend` directory and run:
 
 ```bash
-GET http://localhost:8080/api/data/graded-categories-summary
+pnpm test
 ```
 
-**Example Response:**
+---
 
-```json
-[
-  {
-    "key": "Math",
-    "highestScore": 95,
-    "lowestScore": 60,
-    "averageScore": 78.5
-  },
-  {
-    "key": "Science",
-    "highestScore": 92,
-    "lowestScore": 64,
-    "averageScore": 78.7
-  }
-]
-```
+## Notes
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- Ensure the backend is running before accessing the frontend.
+- Shared types or utilities are stored in the `shared` directory for consistency between backend and frontend.
