@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "./components/DataTable/DataTable";
 import Layout1 from "./components/Layout1/Layout1";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import StudentByIdReport from "./components/StudentByIdReport/StudentByIdReport";
+import GradedCategoriesSummary from "./components/GradedCategoriesSummary/GradedCategoriesSummary";
 const App: React.FC = () => {
   return (
     <div>
@@ -19,6 +21,15 @@ const App: React.FC = () => {
         main={<DataTable />}
         footer={<p>&copy; 2025 Student Data Analysis</p>}
       ></Layout1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/teachers/:studentId" element={<StudentByIdReport />} />
+          <Route
+            path="/graded-categories-summary"
+            element={<GradedCategoriesSummary />}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
