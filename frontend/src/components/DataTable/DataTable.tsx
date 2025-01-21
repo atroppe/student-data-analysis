@@ -27,73 +27,73 @@ const DataTable = () => {
   }, []);
 
   const columns: GridColDef[] = [
-    { field: "Student_ID", headerName: "Student ID", width: 50 },
-    { field: "Age", headerName: "Age", width: 50 },
+    { field: "Student_ID", headerName: "Student ID", width: 100 },
+    { field: "Age", headerName: "Age", width: 100 },
     {
       field: "Grade_Level",
-      headerName: "Grade_Level",
-      width: 50,
+      headerName: "Grade Level",
+      width: 100,
     },
     {
       field: "Gender",
       headerName: "Gender",
       width: 100,
     },
-    { field: "Attendance_Rate", headerName: "Attendance_Rate", width: 100 },
+    { field: "Attendance_Rate", headerName: "Attendance Rate", width: 100 },
     {
       field: "Learning_Style",
-      headerName: "Learning_Style",
+      headerName: "Learning Style",
       width: 100,
     },
     {
       field: "Access_to_Technology",
-      headerName: "Access_to_Technology",
-      width: 50,
+      headerName: "Access to Technology",
+      width: 100,
     },
     {
       field: "Study_Hours_Per_Week",
-      headerName: "Study_Hours_Per_Week",
-      width: 50,
+      headerName: "Study Hours Per Week",
+      width: 100,
     },
     {
       field: "Stress_Level",
-      headerName: "Stress_Level",
-      width: 50,
+      headerName: "Stress Level",
+      width: 100,
     },
     {
       field: "Advanced_Math_Concepts",
-      headerName: "Advanced_Math_Concepts",
+      headerName: "Advanced Math Concepts",
       width: 100,
     },
-    { field: "Basic_Arithmetic", headerName: "Basic_Arithmetic", width: 100 },
+    { field: "Basic_Arithmetic", headerName: "Basic Arithmetic", width: 100 },
     {
       field: "Communication_Skills",
-      headerName: "Communication_Skills",
+      headerName: "Communication Skills",
       width: 100,
     },
     {
       field: "Emotional_Recognition",
-      headerName: "Emotional_Recognition",
+      headerName: "Emotional Recognition",
       width: 100,
     },
     {
       field: "Consistent_Assignment_Completion",
-      headerName: "Consistent_Assignment_Completion",
+      headerName: "Consistent Assignment Completion",
       width: 100,
     },
     {
       field: "Extracurricular_Participation",
-      headerName: "Extracurricular_Participation",
-      width: 50,
+      headerName: "Extracurricular Participation",
+      width: 100,
     },
     {
       field: "Focus_Levels",
-      headerName: "Focus_Levels",
+      headerName: "Focus Levels",
       width: 100,
     },
     {
       field: "Frequent_Interruptions",
-      headerName: "Frequent_Interruptions",
+      headerName: "Frequent Interruptions",
       width: 100,
     },
   ];
@@ -107,11 +107,12 @@ const DataTable = () => {
   }
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <div style={{ height: "90%", width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
         getRowId={(row) => row.Student_ID}
+        loading={loading}
       />
     </div>
   );
