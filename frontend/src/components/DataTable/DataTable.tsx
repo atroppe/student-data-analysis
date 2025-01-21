@@ -27,8 +27,75 @@ const DataTable = () => {
   }, []);
 
   const columns: GridColDef[] = [
-    { field: "Student_ID", headerName: "Student ID", width: 100 },
-    { field: "Age", headerName: "Age", width: 100 },
+    { field: "Student_ID", headerName: "Student ID", width: 50 },
+    { field: "Age", headerName: "Age", width: 50 },
+    {
+      field: "Grade_Level",
+      headerName: "Grade_Level",
+      width: 50,
+    },
+    {
+      field: "Gender",
+      headerName: "Gender",
+      width: 100,
+    },
+    { field: "Attendance_Rate", headerName: "Attendance_Rate", width: 100 },
+    {
+      field: "Learning_Style",
+      headerName: "Learning_Style",
+      width: 100,
+    },
+    {
+      field: "Access_to_Technology",
+      headerName: "Access_to_Technology",
+      width: 50,
+    },
+    {
+      field: "Study_Hours_Per_Week",
+      headerName: "Study_Hours_Per_Week",
+      width: 50,
+    },
+    {
+      field: "Stress_Level",
+      headerName: "Stress_Level",
+      width: 50,
+    },
+    {
+      field: "Advanced_Math_Concepts",
+      headerName: "Advanced_Math_Concepts",
+      width: 100,
+    },
+    { field: "Basic_Arithmetic", headerName: "Basic_Arithmetic", width: 100 },
+    {
+      field: "Communication_Skills",
+      headerName: "Communication_Skills",
+      width: 100,
+    },
+    {
+      field: "Emotional_Recognition",
+      headerName: "Emotional_Recognition",
+      width: 100,
+    },
+    {
+      field: "Consistent_Assignment_Completion",
+      headerName: "Consistent_Assignment_Completion",
+      width: 100,
+    },
+    {
+      field: "Extracurricular_Participation",
+      headerName: "Extracurricular_Participation",
+      width: 50,
+    },
+    {
+      field: "Focus_Levels",
+      headerName: "Focus_Levels",
+      width: 100,
+    },
+    {
+      field: "Frequent_Interruptions",
+      headerName: "Frequent_Interruptions",
+      width: 100,
+    },
   ];
 
   if (loading) {
@@ -40,7 +107,7 @@ const DataTable = () => {
   }
 
   return (
-    <div style={{ height: 600, width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}
