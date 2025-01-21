@@ -15,7 +15,9 @@ const DataTable = () => {
         return response.json();
       })
       .then((data) => {
-        setRows(data);
+        console.log(data.data);
+
+        setRows(data.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -25,9 +27,8 @@ const DataTable = () => {
   }, []);
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "name", headerName: "Name", width: 200 },
-    { field: "age", headerName: "Age", width: 100 },
+    { field: "Student_ID", headerName: "Student ID", width: 100 },
+    { field: "Age", headerName: "Age", width: 100 },
   ];
 
   if (loading) {
@@ -39,8 +40,12 @@ const DataTable = () => {
   }
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid rows={rows} columns={columns} pageSize={5} />
+    <div style={{ height: 600, width: "100%" }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        getRowId={(row) => row.Student_ID}
+      />
     </div>
   );
 };
