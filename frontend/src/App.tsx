@@ -4,6 +4,7 @@ import Layout1 from "./components/Layout1/Layout1";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StudentByIdReport from "./components/StudentByIdReport/StudentByIdReport";
 import GradedCategoriesSummary from "./components/GradedCategoriesSummary/GradedCategoriesSummary";
+import { Link } from "@mui/material";
 const App: React.FC = () => {
   return (
     <div>
@@ -13,8 +14,14 @@ const App: React.FC = () => {
         sidebar={
           <nav>
             <ul>
-              <li>Menu Item 1</li>
-              <li>Menu Item 2</li>
+              <li>
+                <Link href="/teachers/1">Student by ID</Link>
+              </li>
+              <li>
+                <Link href="graded-categories-summary">
+                  Graded Categories Summary
+                </Link>
+              </li>
             </ul>
           </nav>
         }
@@ -23,11 +30,13 @@ const App: React.FC = () => {
       ></Layout1>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<div></div>} />
           <Route path="/teachers/:studentId" element={<StudentByIdReport />} />
           <Route
             path="/graded-categories-summary"
             element={<GradedCategoriesSummary />}
           />
+          <Route path="*" element={<div>Page Not Found</div>} />
         </Routes>
       </BrowserRouter>
     </div>
