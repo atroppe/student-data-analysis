@@ -2,15 +2,18 @@ import React, { FC } from "react";
 import { Layout1Wrapper } from "./Layout1.styled";
 import { Box, Container, Grid, Typography, Paper } from "@mui/material";
 
-interface Layout1Props {}
+interface Layout1Props {
+  children: React.ReactNode;
+  heading: string;
+}
 
-const Layout1: FC<Layout1Props> = () => (
+const Layout1: FC<Layout1Props> = (props) => (
   <Layout1Wrapper data-testid="Layout1">
     <Container maxWidth="lg">
       {/* Page Title */}
       <Box sx={{ my: 4, textAlign: "center" }}>
         <Typography variant="h3" component="h1" gutterBottom>
-          Student Data Analysis
+          {props.heading}
         </Typography>
       </Box>
 
@@ -30,6 +33,7 @@ const Layout1: FC<Layout1Props> = () => (
             <Typography variant="h6" gutterBottom>
               Data Overview
             </Typography>
+            {props.children}
             {/* <DataGrid
               rows={rows}
               columns={columns}

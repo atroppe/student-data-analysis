@@ -5,9 +5,9 @@ import Layout1 from "./components/Layout1/Layout1";
 const App: React.FC = () => {
   return (
     <div>
-      {/* <h1>Student Data</h1> */}
-      <Layout1 />
-      <DataTable />
+      <Layout1 heading="All Student Data">
+        <DataTable />
+      </Layout1>
     </div>
   );
 };
