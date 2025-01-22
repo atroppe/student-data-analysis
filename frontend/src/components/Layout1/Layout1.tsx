@@ -14,7 +14,7 @@ interface Layout1Props {
   sidebar?: React.ReactNode;
   children: React.ReactNode;
   footer?: React.ReactNode;
-  heading: string;
+  heading?: string;
 }
 
 const Layout1: FC<Layout1Props> = ({
@@ -31,9 +31,9 @@ const Layout1: FC<Layout1Props> = ({
       <Container maxWidth="lg">
         {/* Page Title */}
         <Box sx={{ my: 4, textAlign: "center" }}>
-          <Typography variant="h3" component="h1" gutterBottom>
+          {/* <Typography variant="h3" component="h1" gutterBottom>
             {heading}
-          </Typography>
+          </Typography> */}
         </Box>
 
         {/* Grid Layout */}
@@ -48,10 +48,7 @@ const Layout1: FC<Layout1Props> = ({
 
           {/* Main Content */}
           <Grid item xs={12} md={9}>
-            <Paper elevation={3} sx={{ height: 700, p: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                Data Overview
-              </Typography>
+            <Paper elevation={3} sx={{ p: 2 }}>
               {children}
             </Paper>
           </Grid>

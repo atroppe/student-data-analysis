@@ -11,11 +11,13 @@ const App: React.FC = () => {
   return (
     <div>
       <Layout1
-        heading="All Student Data"
         header={<h1>Student Data Analysis</h1>}
         sidebar={
           <nav>
             <ul>
+              <li>
+                <Link href="/">Student Data Overview</Link>
+              </li>
               <li>
                 <Link href="/teachers/1">Student by ID</Link>
               </li>
