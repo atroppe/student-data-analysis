@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StudentByIdReport from "./components/StudentByIdReport/StudentByIdReport";
 import GradedCategoriesSummary from "./components/GradedCategoriesSummary/GradedCategoriesSummary";
 import { Link } from "@mui/material";
+import Home from "./components/Home/Home";
+
 const App: React.FC = () => {
   return (
     <div>
@@ -25,20 +27,23 @@ const App: React.FC = () => {
             </ul>
           </nav>
         }
-        main={<DataTable />}
         footer={<p>&copy; 2025 Student Data Analysis</p>}
-      ></Layout1>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<div></div>} />
-          <Route path="/teachers/:studentId" element={<StudentByIdReport />} />
-          <Route
-            path="/graded-categories-summary"
-            element={<GradedCategoriesSummary />}
-          />
-          <Route path="*" element={<div>Page Not Found</div>} />
-        </Routes>
-      </BrowserRouter>
+      >
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/teachers/:studentId"
+              element={<StudentByIdReport />}
+            />
+            <Route
+              path="/graded-categories-summary"
+              element={<GradedCategoriesSummary />}
+            />
+            <Route path="*" element={<div>Page Not Found</div>} />
+          </Routes>
+        </BrowserRouter>
+      </Layout1>
     </div>
   );
 };

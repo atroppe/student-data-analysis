@@ -12,7 +12,7 @@ import {
 interface Layout1Props {
   header?: React.ReactNode;
   sidebar?: React.ReactNode;
-  main: React.ReactNode;
+  children: React.ReactNode;
   footer?: React.ReactNode;
   heading: string;
 }
@@ -20,7 +20,7 @@ interface Layout1Props {
 const Layout1: FC<Layout1Props> = ({
   header,
   sidebar,
-  main,
+  children,
   footer,
   heading,
 }) => {
@@ -52,7 +52,7 @@ const Layout1: FC<Layout1Props> = ({
               <Typography variant="h6" gutterBottom>
                 Data Overview
               </Typography>
-              {main}
+              {children}
             </Paper>
           </Grid>
         </Grid>
